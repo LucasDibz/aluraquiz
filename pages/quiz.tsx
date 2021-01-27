@@ -19,7 +19,25 @@ function LoadingWidget() {
   );
 }
 
-function QuestionWidget({ question, questionIndex, totalQuestions, onSubmit }) {
+interface QuestionProps {
+  question: {
+    image: string;
+    title: string;
+    description: string;
+    answer: number;
+    alternatives: string[];
+  };
+  questionIndex: number;
+  totalQuestions: number;
+  onSubmit: any;
+}
+
+const QuestionWidget: FC<QuestionProps> = ({
+  question,
+  questionIndex,
+  totalQuestions,
+  onSubmit,
+}) => {
   const questionId = `question__${questionIndex}`;
   return (
     <Widget>
@@ -74,7 +92,7 @@ function QuestionWidget({ question, questionIndex, totalQuestions, onSubmit }) {
       </Widget.Content>
     </Widget>
   );
-}
+};
 
 const screenStates = {
   QUIZ: 'QUIZ',
