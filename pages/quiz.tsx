@@ -12,7 +12,9 @@ function LoadingWidget() {
     <Widget>
       <Widget.Header>Carregando...</Widget.Header>
 
-      <Widget.Content>[Desafio do Loading]</Widget.Content>
+      <Widget.Content>
+        <i className='fa fa-cog fa-spin' />
+      </Widget.Content>
     </Widget>
   );
 }
