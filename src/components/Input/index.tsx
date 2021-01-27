@@ -1,4 +1,7 @@
+import React, { FC, InputHTMLAttributes } from 'react';
 import styled from 'styled-components';
+
+interface InputProps extends InputHTMLAttributes<HTMLInputElement> {}
 
 const InputBase = styled.input`
   width: 100%;
@@ -12,9 +15,9 @@ const InputBase = styled.input`
   margin-bottom: 25px;
 `;
 
-const Input = ({ onChange, placeholder, ...props }) => (
+const Input: FC<InputProps> = ({ placeholder, ...props }) => (
   <div>
-    <InputBase onChange={onChange} placeholder={placeholder} {...props} />
+    <InputBase placeholder={placeholder} {...props} />
   </div>
 );
 
