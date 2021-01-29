@@ -1,13 +1,14 @@
 import { FC, useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 
-import Widget from '@components/Widget';
-import QuizLogo from '@components/QuizLogo';
-import QuizBackground from '@components/QuizBackground';
-import Button from '@components/Button';
-import QuizContainer from '@components/QuizContainer';
 import AlternativesForm from '@components/AlternativesForm';
-import db from '../db.json';
+import QuizBackground from '@components/QuizBackground';
+import QuizContainer from '@components/QuizContainer';
+import QuizLogo from '@components/QuizLogo';
+import Button from '@components/Button';
+import Widget from '@components/Widget';
+import BackLinkArrow from '@components/BackLinkArrow';
+import baseDatabase from '../../../db.json';
 
 interface ResultProps {
   results: boolean[];
@@ -79,7 +80,7 @@ const QuestionWidget: FC<QuestionProps> = ({
   return (
     <Widget>
       <Widget.Header>
-        {/* <BackLinkArrow href="/" /> */}
+        <BackLinkArrow href='/' />
         <h3>{`${player} - Pergunta ${
           questionIndex + 1
         } de ${totalQuestions}`}</h3>
@@ -154,7 +155,36 @@ const screenStates = {
   RESULT: 'RESULT',
 };
 
-export default function QuizPage() {
+export interface QuizProps {
+  externalDatabase?: {
+    bg: string;
+    title: string;
+    description: string;
+    questions: [
+      {
+        image: string;
+        title: string;
+        description: string;
+        answer: number;
+        alternatives: string[];
+      }
+    ];
+    external: string[];
+    theme: {
+      colors: {
+        primary: string;
+        secondary: string;
+        mainBg: string;
+        contrastText: string;
+        wrong: string;
+        success: string;
+      };
+      borderRadius: string;
+    };
+  };
+}
+const QuizPage: FC<QuizProps> = ({ externalDatabase }) => {
+  const db = externalDatabase || baseDatabase;
   const router = useRouter();
   const player = router.query.name as string;
   const [screenState, setScreenState] = useState(screenStates.LOADING);
@@ -207,4 +237,6 @@ export default function QuizPage() {
       </QuizContainer>
     </QuizBackground>
   );
-}
+};
+
+export default QuizPage;
